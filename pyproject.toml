@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "animelist desktop"
+version = "0.1.0"
+description = "multiplatform desktop app"
+authors = ["ilia <iliaman1993@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+customtkinter = "^5.0.3"
+requests = "^2.28.1"
+pillow = "^9.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
