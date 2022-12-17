@@ -167,10 +167,10 @@ class App(customtkinter.CTk):
         self.login_label = customtkinter.CTkLabel(self.frame_login, text="Animelist\nLogin Page",
                                                   font=customtkinter.CTkFont(size=20, weight="bold"))
         self.login_label.grid(row=1, column=0, padx=30, pady=(40, 15))
-        self.username_entry = customtkinter.CTkEntry(self.frame_login, width=200, placeholder_text="username")
-        self.username_entry.grid(row=2, column=0, padx=30, pady=(15, 15))
-        self.password_entry = customtkinter.CTkEntry(self.frame_login, width=200, show="*", placeholder_text="password")
-        self.password_entry.grid(row=3, column=0, padx=30, pady=(0, 15))
+        self.login_username_entry = customtkinter.CTkEntry(self.frame_login, width=200, placeholder_text="username")
+        self.login_username_entry.grid(row=2, column=0, padx=30, pady=(15, 15))
+        self.login_password_entry = customtkinter.CTkEntry(self.frame_login, width=200, show="*", placeholder_text="password")
+        self.login_password_entry.grid(row=3, column=0, padx=30, pady=(0, 15))
         self.login_button = customtkinter.CTkButton(self.frame_login, text="Login", command=self.login_event, width=200)
         self.login_button.grid(row=4, column=0, padx=30, pady=(15, 15))
         self.login_label_error = customtkinter.CTkLabel(self.frame_login, text="Error: Вы ЛОХ!", text_color='red',
@@ -322,6 +322,8 @@ class App(customtkinter.CTk):
             self.registration_label_error.configure(text=f"{response_text}")
             if answer.status_code < 400:
                 self.select_frame_by_name("frame_login")
+                self.login_username_entry.insert(0, username)
+                self.login_password_entry.insert(0, password)
 
 
     def login_event(self):
