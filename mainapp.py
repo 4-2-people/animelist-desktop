@@ -173,7 +173,7 @@ class App(customtkinter.CTk):
         self.login_password_entry.grid(row=3, column=0, padx=30, pady=(0, 15))
         self.login_button = customtkinter.CTkButton(self.frame_login, text="Login", command=self.login_event, width=200)
         self.login_button.grid(row=4, column=0, padx=30, pady=(15, 15))
-        self.login_label_error = customtkinter.CTkLabel(self.frame_login, text="Error: Вы ЛОХ!", text_color='red',
+        self.login_label_error = customtkinter.CTkLabel(self.frame_login, text="Error: тут будет ошибка", text_color='red',
                                                         font=customtkinter.CTkFont(size=14, weight="bold"))
         self.login_label_error.grid(row=5, column=0, padx=30, pady=(15, 15))
 
@@ -316,7 +316,7 @@ class App(customtkinter.CTk):
 
         else:
             password = self.registration_password_entry.get()
-            answer = requests.post('http://localhost:8000/v1/auth/sign-up', json={"username": f"{username}", "email": f"{email}", "password": f"{password}"})
+            answer = requests.post('http://localhost:8000/v1/auth/sign-up', json={"username": username, "email": email, "password": password})
             response = answer.json()
             response_text = response['detail']
             self.registration_label_error.configure(text=f"{response_text}")
@@ -327,7 +327,13 @@ class App(customtkinter.CTk):
 
 
     def login_event(self):
-        print(requests.get('http://localhost:8000/v1/auth/current'))
+        username = self.login_username_entry.get()
+        password = self.login_password_entry.get()
+        answer = requests.get('http://localhost:8000/v1/auth/current', auth=(username, password))
+        response = answer.json()
+        print(answer.status_code)
+        print(response)
+
 
     def frame_chat_button_event(self):
         pass
