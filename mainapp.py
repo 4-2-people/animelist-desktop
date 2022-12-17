@@ -320,6 +320,8 @@ class App(customtkinter.CTk):
             response = answer.json()
             response_text = response['detail']
             self.registration_label_error.configure(text=f"{response_text}")
+            if answer.status_code < 400:
+                self.select_frame_by_name("frame_login")
 
 
     def login_event(self):
