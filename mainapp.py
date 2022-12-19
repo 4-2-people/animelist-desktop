@@ -29,6 +29,9 @@ class App(customtkinter.CTk):
                                                  dark_image=Image.open(os.path.join(image_path, "home_dark.png")), size=(20, 20))
         self.chat_image = customtkinter.CTkImage(light_image=Image.open(os.path.join(image_path, "chat_light.png")),
                                                  dark_image=Image.open(os.path.join(image_path, "chat_dark.png")), size=(20, 20))
+        self.profile_image = customtkinter.CTkImage(light_image=Image.open(os.path.join(image_path, "profile_light.png")),
+                                                 dark_image=Image.open(os.path.join(image_path, "profile_dark.png")),
+                                                 size=(20, 20))
         self.add_user_image = customtkinter.CTkImage(light_image=Image.open(os.path.join(image_path, "add_user_light.png")),
                                                      dark_image=Image.open(os.path.join(image_path, "add_user_dark.png")), size=(20, 20))
         self.user_login_image = customtkinter.CTkImage(
@@ -77,23 +80,30 @@ class App(customtkinter.CTk):
                                                           command=self.frame_login_button_event)
         self.nav_login_button.grid(row=3, column=0, sticky="ew")
 
+        self.nav_profile_button = customtkinter.CTkButton(self.navigation_frame, corner_radius=0, height=40,
+                                                        border_spacing=10, text="Profile",
+                                                        fg_color="transparent", text_color=("gray10", "gray90"),
+                                                        hover_color=("gray70", "gray30"),
+                                                        image=self.profile_image, anchor="w",
+                                                        command=self.frame_profile_button_event)
+
         self.frame_chat_button = customtkinter.CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Chat",
                                                       fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
-                                                      image=self.chat_image, anchor="w", command=self.frame_chat_button_event)
-        self.frame_chat_button.grid(row=4, column=0, sticky="ew")
+                                                      image=self.chat_image, anchor="w", state='disabled', command=self.frame_chat_button_event)
+        #
 
         self.frame_3_button = customtkinter.CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Add friend",
                                                       fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
-                                                      image=self.add_user_image, anchor="w", command=self.frame_3_button_event)
-        self.frame_3_button.grid(row=5, column=0, sticky="ew")
+                                                      image=self.add_user_image, anchor="w", state='disabled', command=self.frame_3_button_event)
+        #
 
         self.frame_found_button = customtkinter.CTkButton(self.navigation_frame, corner_radius=0, height=40,
                                                       border_spacing=10, text="Found anime",
                                                       fg_color="transparent", text_color=("gray10", "gray90"),
                                                       hover_color=("gray70", "gray30"),
-                                                      image=self.found_image, anchor="w",
+                                                      image=self.found_image, anchor="w", state='disabled',
                                                       command=self.frame_found_button_event)
-        self.frame_found_button.grid(row=6, column=0, sticky="ew")
+        #
 
         self.hide_navbar_button = customtkinter.CTkButton(self.navigation_frame, corner_radius=0, height=40,
                                                       border_spacing=10, text="<<",
@@ -173,9 +183,25 @@ class App(customtkinter.CTk):
         self.login_password_entry.grid(row=3, column=0, padx=30, pady=(0, 15))
         self.login_button = customtkinter.CTkButton(self.frame_login, text="Login", command=self.login_event, width=200)
         self.login_button.grid(row=4, column=0, padx=30, pady=(15, 15))
-        self.login_label_error = customtkinter.CTkLabel(self.frame_login, text="Error: тут будет ошибка", text_color='red',
+        self.login_label_error = customtkinter.CTkLabel(self.frame_login, text="", text_color='red',
                                                         font=customtkinter.CTkFont(size=14, weight="bold"))
         self.login_label_error.grid(row=5, column=0, padx=30, pady=(15, 15))
+
+        # create profile frame
+        self.frame_profile = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.frame_profile.grid_columnconfigure(0, weight=1)
+
+        self.profile_label = customtkinter.CTkLabel(self.frame_profile, text="Animelist\nProfile Page",
+                                                  font=customtkinter.CTkFont(size=20, weight="bold"))
+        self.profile_label.grid(row=1, column=0, padx=15, pady=(20, 15))
+        customtkinter.CTkLabel(self.frame_profile, text="username: ").grid(row=2, column=0, sticky="e")
+        customtkinter.CTkLabel(self.frame_profile, text="email: ").grid(row=3, column=0, sticky="e")
+        self.profile_username_label = customtkinter.CTkLabel(self.frame_profile, text="")
+        self.profile_username_label.grid(row=2, column=1, sticky="w")
+        self.profile_email_label = customtkinter.CTkLabel(self.frame_profile, text="")
+        self.profile_email_label.grid(row=3, column=1, sticky="w")
+
+
 
         # create third frame
         self.third_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
@@ -208,6 +234,7 @@ class App(customtkinter.CTk):
         self.nav_login_button.configure(fg_color=("gray75", "gray25") if name == "frame_login" else "transparent")
         self.frame_3_button.configure(fg_color=("gray75", "gray25") if name == "frame_3" else "transparent")
         self.frame_found_button.configure(fg_color=("gray75", "gray25") if name == "frame_found" else "transparent")
+        self.nav_profile_button.configure(fg_color=("gray75", "gray25") if name == "frame_profile" else "transparent")
 
         # show selected frame
         if name == "home":
@@ -222,6 +249,10 @@ class App(customtkinter.CTk):
             self.frame_login.grid(row=0, column=1, sticky="nsew")
         else:
             self.frame_login.grid_forget()
+        if name == "frame_profile":
+            self.frame_profile.grid(row=0, column=1, sticky="nsew")
+        else:
+            self.frame_profile.grid_forget()
         if name == "frame_3":
             self.third_frame.grid(row=0, column=1, sticky="nsew")
         else:
@@ -239,6 +270,9 @@ class App(customtkinter.CTk):
 
     def frame_login_button_event(self):
         self.select_frame_by_name("frame_login")
+
+    def frame_profile_button_event(self):
+        self.select_frame_by_name("frame_profile")
 
     def frame_3_button_event(self):
         self.select_frame_by_name("frame_3")
@@ -331,8 +365,17 @@ class App(customtkinter.CTk):
         password = self.login_password_entry.get()
         answer = requests.get('http://localhost:8000/v1/auth/current', auth=(username, password))
         response = answer.json()
-        print(answer.status_code)
-        print(response)
+        if answer.status_code < 400:
+            self.nav_profile_button.grid(row=2, column=0, sticky="ew")
+            self.frame_chat_button.grid(row=3, column=0, sticky="ew")
+            self.frame_3_button.grid(row=4, column=0, sticky="ew")
+            self.frame_found_button.grid(row=5, column=0, sticky="ew")
+            self.navigation_frame_label.configure(text=response['username'])
+            self.profile_username_label.configure(text=response['username'])
+            self.profile_email_label.configure(text=response['email'])
+            self.select_frame_by_name("frame_profile")
+        else:
+            self.login_label_error.configure(text=response["detail"])
 
 
     def frame_chat_button_event(self):
