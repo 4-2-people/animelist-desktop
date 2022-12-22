@@ -59,94 +59,142 @@ class NavigationFrame(customtkinter.CTkFrame):
         # load images with light and dark mode image
         self.logo_image = customtkinter.CTkImage(
             light_image=Image.open(os.path.join(image_path, "user_avatar_light.png")),
-            dark_image=Image.open(os.path.join(image_path, "user_avatar_dark.png")), size=(26, 26))
+            dark_image=Image.open(os.path.join(image_path, "user_avatar_dark.png")),
+            size=(26, 26)
+        )
 
-        self.home_image = customtkinter.CTkImage(light_image=Image.open(os.path.join(image_path, "home_light.png")),
-                                                 dark_image=Image.open(os.path.join(image_path, "home_dark.png")),
-                                                 size=(20, 20))
-        self.chat_image = customtkinter.CTkImage(light_image=Image.open(os.path.join(image_path, "chat_light.png")),
-                                                 dark_image=Image.open(os.path.join(image_path, "chat_dark.png")),
-                                                 size=(20, 20))
+        self.home_image = customtkinter.CTkImage(
+            light_image=Image.open(os.path.join(image_path, "home_light.png")),
+            dark_image=Image.open(os.path.join(image_path, "home_dark.png")),
+            size=(20, 20)
+        )
+        self.chat_image = customtkinter.CTkImage(
+            light_image=Image.open(os.path.join(image_path, "chat_light.png")),
+            dark_image=Image.open(os.path.join(image_path, "chat_dark.png")),
+            size=(20, 20)
+        )
         self.profile_image = customtkinter.CTkImage(
             light_image=Image.open(os.path.join(image_path, "profile_light.png")),
             dark_image=Image.open(os.path.join(image_path, "profile_dark.png")),
-            size=(20, 20))
+            size=(20, 20)
+        )
         self.add_user_image = customtkinter.CTkImage(
             light_image=Image.open(os.path.join(image_path, "add_user_light.png")),
-            dark_image=Image.open(os.path.join(image_path, "add_user_dark.png")), size=(20, 20))
+            dark_image=Image.open(os.path.join(image_path, "add_user_dark.png")), size=(20, 20)
+        )
         self.user_login_image = customtkinter.CTkImage(
             light_image=Image.open(os.path.join(image_path, "user_login_light.png")),
-            dark_image=Image.open(os.path.join(image_path, "user_login_dark.png")), size=(20, 20))
+            dark_image=Image.open(os.path.join(image_path, "user_login_dark.png")), size=(20, 20)
+        )
         self.user_registration_image = customtkinter.CTkImage(
             light_image=Image.open(os.path.join(image_path, "user_registration_light.png")),
-            dark_image=Image.open(os.path.join(image_path, "user_registration_dark.png")), size=(20, 20))
-        self.found_image = customtkinter.CTkImage(light_image=Image.open(os.path.join(image_path, "search_light.png")),
-                                                  dark_image=Image.open(os.path.join(image_path, "search_dark.png")),
-                                                  size=(20, 20))
+            dark_image=Image.open(os.path.join(image_path, "user_registration_dark.png")), size=(20, 20)
+        )
+        self.found_image = customtkinter.CTkImage(
+            light_image=Image.open(os.path.join(image_path, "search_light.png")),
+            dark_image=Image.open(os.path.join(image_path, "search_dark.png")),
+            size=(20, 20)
+        )
         self.hide_navbar_image = customtkinter.CTkImage(
             light_image=Image.open(os.path.join(image_path, "hidebar_light.png")),
-            dark_image=Image.open(os.path.join(image_path, "hidebar_dark.png")), size=(20, 20))
+            dark_image=Image.open(os.path.join(image_path, "hidebar_dark.png")),
+            size=(20, 20)
+        )
         self.show_navbar_image = customtkinter.CTkImage(
             light_image=Image.open(os.path.join(image_path, "show_light.png")),
-            dark_image=Image.open(os.path.join(image_path, "show_dark.png")), size=(20, 20))
+            dark_image=Image.open(os.path.join(image_path, "show_dark.png")),
+            size=(20, 20)
+        )
 
-        self.navigation_frame_label = customtkinter.CTkLabel(self, text="  Anonymous guest",
-                                                             image=self.logo_image,
-                                                             compound="left",
-                                                             font=customtkinter.CTkFont(size=15, weight="bold"))
+        self.navigation_frame_label = customtkinter.CTkLabel(
+            self, text="  Anonymous guest",
+            image=self.logo_image,
+            compound="left",
+            font=customtkinter.CTkFont(size=15, weight="bold")
+        )
 
-        self.navigation_home_button = customtkinter.CTkButton(self, corner_radius=0, height=40, border_spacing=10,
-                                                              text="Home",
-                                                              fg_color="transparent", text_color=("gray10", "gray90"),
-                                                              hover_color=("gray70", "gray30"),
-                                                              image=self.home_image, anchor="w",
-                                                              command=self.navigation_home_button_event)
+        self.navigation_home_button = customtkinter.CTkButton(
+            self, corner_radius=0, height=40, border_spacing=10,
+            text="Home",
+            fg_color="transparent",
+            text_color=("gray10", "gray90"),
+            hover_color=("gray70", "gray30"),
+            image=self.home_image,
+            anchor="w",
+            command=self.navigation_home_button_event
+        )
 
-        self.navigation_registration_button = customtkinter.CTkButton(self, corner_radius=0, height=40,
-                                                                      border_spacing=10, text="Registration",
-                                                                      fg_color="transparent",
-                                                                      text_color=("gray10", "gray90"),
-                                                                      hover_color=("gray70", "gray30"),
-                                                                      image=self.user_registration_image, anchor="w",
-                                                                      command=self.navigation_registration_button_event)
+        self.navigation_registration_button = customtkinter.CTkButton(
+            self, corner_radius=0, height=40, border_spacing=10,
+            text="Registration",
+            fg_color="transparent",
+            text_color=("gray10", "gray90"),
+            hover_color=("gray70", "gray30"),
+            image=self.user_registration_image,
+            anchor="w",
+            command=self.navigation_registration_button_event
+        )
 
-        self.navigation_login_button = customtkinter.CTkButton(self, corner_radius=0, height=40,
-                                                               border_spacing=10, text="Login",
-                                                               fg_color="transparent", text_color=("gray10", "gray90"),
-                                                               hover_color=("gray70", "gray30"),
-                                                               image=self.user_login_image, anchor="w",
-                                                               command=self.navigation_login_button_event)
+        self.navigation_login_button = customtkinter.CTkButton(
+            self, corner_radius=0, height=40, border_spacing=10,
+            text="Login",
+            fg_color="transparent", text_color=("gray10", "gray90"),
+            hover_color=("gray70", "gray30"),
+            image=self.user_login_image,
+            anchor="w",
+            command=self.navigation_login_button_event
+        )
 
-        self.navigation_profile_button = customtkinter.CTkButton(self, corner_radius=0, height=40,
-                                                                 border_spacing=10, text="Profile",
-                                                                 fg_color="transparent",
-                                                                 text_color=("gray10", "gray90"),
-                                                                 hover_color=("gray70", "gray30"),
-                                                                 image=self.profile_image, anchor="w",
-                                                                 command=self.navigation_profile_button_event)
+        self.navigation_profile_button = customtkinter.CTkButton(
+            self, corner_radius=0, height=40, border_spacing=10,
+            text="Profile",
+            fg_color="transparent",
+            text_color=("gray10", "gray90"),
+            hover_color=("gray70", "gray30"),
+            image=self.profile_image,
+            anchor="w",
+            command=self.navigation_profile_button_event
+        )
 
-        self.navigation_chat_button = customtkinter.CTkButton(self, corner_radius=0, height=40,
-                                                              border_spacing=10, text="Chat",
-                                                              fg_color="transparent", text_color=("gray10", "gray90"),
-                                                              hover_color=("gray70", "gray30"),
-                                                              image=self.chat_image, anchor="w", state='disabled',
-                                                              command=self.navigation_chat_button_event)
-        self.navigation_add_friend_button = customtkinter.CTkButton(self, corner_radius=0, height=40,
-                                                                    border_spacing=10, text="Add friend",
-                                                                    fg_color="transparent",
-                                                                    text_color=("gray10", "gray90"),
-                                                                    hover_color=("gray70", "gray30"),
-                                                                    image=self.add_user_image, anchor="w",
-                                                                    state='disabled',
-                                                                    command=self.navigation_add_friend_button_event)
-        self.navigation_found_button = customtkinter.CTkButton(self, corner_radius=0, height=40,
-                                                               border_spacing=10, text="Found anime",
-                                                               fg_color="transparent", text_color=("gray10", "gray90"),
-                                                               hover_color=("gray70", "gray30"),
-                                                               image=self.found_image, anchor="w", state='disabled',
-                                                               command=self.navigation_found_button_event)
+        self.navigation_chat_button = customtkinter.CTkButton(
+            self, corner_radius=0, height=40, border_spacing=10,
+            text="Chat",
+            fg_color="transparent",
+            text_color=("gray10", "gray90"),
+            hover_color=("gray70", "gray30"),
+            image=self.chat_image,
+            anchor="w",
+            state='disabled',
+            command=self.navigation_chat_button_event
+        )
+
+        self.navigation_add_friend_button = customtkinter.CTkButton(
+            self, corner_radius=0, height=40, border_spacing=10,
+            text="Add friend",
+            fg_color="transparent",
+            text_color=("gray10", "gray90"),
+            hover_color=("gray70", "gray30"),
+            image=self.add_user_image,
+            anchor="w",
+            state='disabled',
+            command=lambda: self.select_frame_by_name("frame_add_friend")
+        )
+
+        self.navigation_found_button = customtkinter.CTkButton(
+            self, corner_radius=0, height=40,
+            border_spacing=10, text="Found anime",
+            fg_color="transparent",
+            text_color=("gray10", "gray90"),
+            hover_color=("gray70", "gray30"),
+            image=self.found_image,
+            anchor="w",
+            state='disabled',
+            command=lambda: self.select_frame_by_name("frame_found")
+        )
+
         self.navigation_appearance_mode_menu = customtkinter.CTkOptionMenu(
-            self, values=["Light", "Dark", "System"], command=lambda mode: customtkinter.set_appearance_mode(mode)
+            self, values=["Light", "Dark", "System"],
+            command=lambda mode: customtkinter.set_appearance_mode(mode)
         )
 
         self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
@@ -157,7 +205,7 @@ class NavigationFrame(customtkinter.CTkFrame):
 
     def select_frame_by_name(self, name: str):
         # set button color for selected button
-        self.navigation_home_button.configure(fg_color=("gray75", "gray25") if name == "home" else "transparent")
+        self.navigation_home_button.configure(fg_color=("gray75", "gray25") if name == "frame_home" else "transparent")
         self.navigation_registration_button.configure(
             fg_color=("gray75", "gray25") if name == "frame_registration" else "transparent")
         self.navigation_login_button.configure(
@@ -172,7 +220,7 @@ class NavigationFrame(customtkinter.CTkFrame):
         self.master.show_frame_by_name(name)
 
     def navigation_home_button_event(self):
-        self.select_frame_by_name("home")
+        self.select_frame_by_name("frame_home")
 
     def navigation_registration_button_event(self):
         self.select_frame_by_name("frame_registration")
