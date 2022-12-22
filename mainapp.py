@@ -1,6 +1,5 @@
 import os
 import tkinter
-
 import customtkinter
 import requests
 from PIL import Image
@@ -17,7 +16,6 @@ class App(customtkinter.CTk):
         self.geometry("700x450")
         self.iconphoto(False, tkinter.PhotoImage(file="bg_img/test img/app_logo.png"))
 
-        # set grid layout 1x2
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
 
@@ -30,7 +28,6 @@ class App(customtkinter.CTk):
         self.navigation_frame.grid(row=0, column=0, sticky="nsew")
         self.frame_home.grid(row=0, column=1, sticky="nsew")
 
-    # show selected frame
     def show_frame_by_name(self, name: str):
         if name == "home":
             self.frame_home.grid(row=0, column=1, sticky="nsew")
@@ -56,13 +53,11 @@ class App(customtkinter.CTk):
 class NavigationFrame(customtkinter.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
-        # load images with light and dark mode image
         self.logo_image = customtkinter.CTkImage(
             light_image=Image.open(os.path.join(image_path, "user_avatar_light.png")),
             dark_image=Image.open(os.path.join(image_path, "user_avatar_dark.png")),
             size=(26, 26)
         )
-
         self.home_image = customtkinter.CTkImage(
             light_image=Image.open(os.path.join(image_path, "home_light.png")),
             dark_image=Image.open(os.path.join(image_path, "home_dark.png")),
@@ -105,14 +100,12 @@ class NavigationFrame(customtkinter.CTkFrame):
             dark_image=Image.open(os.path.join(image_path, "show_dark.png")),
             size=(20, 20)
         )
-
         self.navigation_frame_label = customtkinter.CTkLabel(
             self, text="  Anonymous guest",
             image=self.logo_image,
             compound="left",
             font=customtkinter.CTkFont(size=15, weight="bold")
         )
-
         self.navigation_home_button = customtkinter.CTkButton(
             self, corner_radius=0, height=40, border_spacing=10,
             text="Home",
@@ -121,9 +114,8 @@ class NavigationFrame(customtkinter.CTkFrame):
             hover_color=("gray70", "gray30"),
             image=self.home_image,
             anchor="w",
-            command=self.navigation_home_button_event
+            command=lambda: self.select_frame_by_name("frame_home")
         )
-
         self.navigation_registration_button = customtkinter.CTkButton(
             self, corner_radius=0, height=40, border_spacing=10,
             text="Registration",
@@ -132,9 +124,8 @@ class NavigationFrame(customtkinter.CTkFrame):
             hover_color=("gray70", "gray30"),
             image=self.user_registration_image,
             anchor="w",
-            command=self.navigation_registration_button_event
+            command=lambda: self.select_frame_by_name("frame_registration")
         )
-
         self.navigation_login_button = customtkinter.CTkButton(
             self, corner_radius=0, height=40, border_spacing=10,
             text="Login",
@@ -142,9 +133,8 @@ class NavigationFrame(customtkinter.CTkFrame):
             hover_color=("gray70", "gray30"),
             image=self.user_login_image,
             anchor="w",
-            command=self.navigation_login_button_event
+            command=lambda: self.select_frame_by_name("frame_login")
         )
-
         self.navigation_profile_button = customtkinter.CTkButton(
             self, corner_radius=0, height=40, border_spacing=10,
             text="Profile",
@@ -153,9 +143,8 @@ class NavigationFrame(customtkinter.CTkFrame):
             hover_color=("gray70", "gray30"),
             image=self.profile_image,
             anchor="w",
-            command=self.navigation_profile_button_event
+            command=lambda: self.select_frame_by_name("frame_profile")
         )
-
         self.navigation_chat_button = customtkinter.CTkButton(
             self, corner_radius=0, height=40, border_spacing=10,
             text="Chat",
@@ -165,9 +154,8 @@ class NavigationFrame(customtkinter.CTkFrame):
             image=self.chat_image,
             anchor="w",
             state='disabled',
-            command=self.navigation_chat_button_event
+            command=lambda: self.select_frame_by_name("frame_chat")
         )
-
         self.navigation_add_friend_button = customtkinter.CTkButton(
             self, corner_radius=0, height=40, border_spacing=10,
             text="Add friend",
@@ -179,7 +167,6 @@ class NavigationFrame(customtkinter.CTkFrame):
             state='disabled',
             command=lambda: self.select_frame_by_name("frame_add_friend")
         )
-
         self.navigation_found_button = customtkinter.CTkButton(
             self, corner_radius=0, height=40,
             border_spacing=10, text="Found anime",
@@ -191,7 +178,6 @@ class NavigationFrame(customtkinter.CTkFrame):
             state='disabled',
             command=lambda: self.select_frame_by_name("frame_found")
         )
-
         self.navigation_appearance_mode_menu = customtkinter.CTkOptionMenu(
             self, values=["Light", "Dark", "System"],
             command=lambda mode: customtkinter.set_appearance_mode(mode)
@@ -204,7 +190,6 @@ class NavigationFrame(customtkinter.CTkFrame):
         self.navigation_appearance_mode_menu.grid(row=8, column=0, padx=20, pady=20, sticky="s")
 
     def select_frame_by_name(self, name: str):
-        # set button color for selected button
         self.navigation_home_button.configure(fg_color=("gray75", "gray25") if name == "frame_home" else "transparent")
         self.navigation_registration_button.configure(
             fg_color=("gray75", "gray25") if name == "frame_registration" else "transparent")
@@ -219,33 +204,6 @@ class NavigationFrame(customtkinter.CTkFrame):
 
         self.master.show_frame_by_name(name)
 
-    def navigation_home_button_event(self):
-        self.select_frame_by_name("frame_home")
-
-    def navigation_registration_button_event(self):
-        self.select_frame_by_name("frame_registration")
-
-    def navigation_login_button_event(self):
-        self.select_frame_by_name("frame_login")
-
-    def navigation_profile_button_event(self):
-        self.select_frame_by_name("frame_profile")
-
-    def navigation_chat_button_event(self):
-        self.select_frame_by_name("frame_chat")
-
-    def navigation_add_friend_button_event(self):
-        self.select_frame_by_name("frame_add_friend")
-
-    def navigation_found_button_event(self):
-        self.select_frame_by_name("frame_found")
-
-    def navigation_found_anime(self):
-        pass
-
-    def navigation_hide_bar_button_event(self):
-        pass
-
     def unlock_navigation_bar(self):
         self.navigation_profile_button.grid(row=2, column=0, sticky="ew")
         self.navigation_chat_button.grid(row=3, column=0, sticky="ew")
@@ -253,7 +211,6 @@ class NavigationFrame(customtkinter.CTkFrame):
         self.navigation_found_button.grid(row=5, column=0, sticky="ew")
 
 
-# create home frame
 class HomeFrame(customtkinter.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -261,30 +218,34 @@ class HomeFrame(customtkinter.CTkFrame):
         self.fg_color = "transparent"
         self.grid_columnconfigure(0, weight=1)
 
-        # load images with light and dark mode image
-        self.large_test_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "large_img.jpg")),
-                                                       size=(500, 150))
-        self.icon_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "app_logo.png")),
-                                                 size=(20, 20))
-
-        self.home_frame_large_image_label = customtkinter.CTkLabel(self, text="",
-                                                                   image=self.large_test_image)
-        self.home_frame_large_image_label.grid(row=0, column=0, padx=20, pady=10)
-
+        self.large_test_image = customtkinter.CTkImage(
+            Image.open(os.path.join(image_path, "large_img.jpg")), size=(500, 150)
+        )
+        self.icon_image = customtkinter.CTkImage(
+            Image.open(os.path.join(image_path, "app_logo.png")), size=(20, 20)
+        )
+        self.home_frame_large_image_label = customtkinter.CTkLabel(
+            self, text="", image=self.large_test_image
+        )
         self.home_frame_button_1 = customtkinter.CTkButton(self, text="", image=self.icon_image)
+
+        self.home_frame_button_2 = customtkinter.CTkButton(
+            self, text="CTkButton", image=self.icon_image, compound="right"
+        )
+        self.home_frame_button_3 = customtkinter.CTkButton(
+            self, text="CTkButton", image=self.icon_image, compound="top"
+        )
+        self.home_frame_button_4 = customtkinter.CTkButton(
+            self, text="CTkButton", image=self.icon_image, compound="bottom", anchor="w"
+        )
+
+        self.home_frame_large_image_label.grid(row=0, column=0, padx=20, pady=10)
         self.home_frame_button_1.grid(row=1, column=0, padx=20, pady=10)
-        self.home_frame_button_2 = customtkinter.CTkButton(self, text="CTkButton",
-                                                           image=self.icon_image, compound="right")
         self.home_frame_button_2.grid(row=2, column=0, padx=20, pady=10)
-        self.home_frame_button_3 = customtkinter.CTkButton(self, text="CTkButton",
-                                                           image=self.icon_image, compound="top")
         self.home_frame_button_3.grid(row=3, column=0, padx=20, pady=10)
-        self.home_frame_button_4 = customtkinter.CTkButton(self, text="CTkButton",
-                                                           image=self.icon_image, compound="bottom", anchor="w")
         self.home_frame_button_4.grid(row=4, column=0, padx=20, pady=10)
 
 
-# create registration frame
 class RegistrationFrame(customtkinter.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -295,18 +256,24 @@ class RegistrationFrame(customtkinter.CTkFrame):
         self.registration_label = customtkinter.CTkLabel(
             self, text="Animelist\nRegistration Page", font=customtkinter.CTkFont(size=20, weight="bold")
         )
-        self.registration_username_entry = customtkinter.CTkEntry(self, width=200,
-                                                                  placeholder_text="username")
-        self.registration_email_entry = customtkinter.CTkEntry(self, width=200,
-                                                               placeholder_text="email")
-        self.registration_password_entry = customtkinter.CTkEntry(self, width=200, show="*",
-                                                                  placeholder_text="enter password")
-        self.registration_password_repeat_entry = customtkinter.CTkEntry(self, width=200, show="*",
-                                                                         placeholder_text="repeat password")
-        self.registration_button = customtkinter.CTkButton(self, text="register",
-                                                           command=self.registration_event, width=200)
-        self.registration_label_error = customtkinter.CTkLabel(self, text="", text_color='red',
-                                                               font=customtkinter.CTkFont(size=14, weight="bold"))
+        self.registration_username_entry = customtkinter.CTkEntry(
+            self, width=200, placeholder_text="username"
+        )
+        self.registration_email_entry = customtkinter.CTkEntry(
+            self, width=200, placeholder_text="email"
+        )
+        self.registration_password_entry = customtkinter.CTkEntry(
+            self, width=200, show="*", placeholder_text="enter password"
+        )
+        self.registration_password_repeat_entry = customtkinter.CTkEntry(
+            self, width=200, show="*", placeholder_text="repeat password"
+        )
+        self.registration_button = customtkinter.CTkButton(
+            self, text="register", command=self.registration_event, width=200
+        )
+        self.registration_label_error = customtkinter.CTkLabel(
+            self, text="", text_color='red', font=customtkinter.CTkFont(size=14, weight="bold")
+        )
 
         self.registration_label.grid(row=0, column=0, padx=30, pady=(40, 15))
         self.registration_username_entry.grid(row=2, column=0, padx=30, pady=(0, 15))
@@ -322,20 +289,19 @@ class RegistrationFrame(customtkinter.CTkFrame):
         email = self.registration_email_entry.get()
         if self.registration_password_entry.get() != self.registration_password_repeat_entry.get():
             self.registration_label_error.configure(text="пароли не совпадают")
-
         else:
             password = self.registration_password_entry.get()
-            response = requests.post('http://localhost:8000/v1/auth/sign-up',
-                                     json={"username": username, "email": email, "password": password})
+            response = requests.post(
+                'http://localhost:8000/v1/auth/sign-up',
+                json={"username": username, "email": email, "password": password}
+            )
             data = response.json()
-
             response_text = data.get("detail", "Сервер пал")
             self.registration_label_error.configure(text=response_text)
             if response.status_code == requests.codes.created:
                 self.master.show_frame_by_name("frame_login")
 
 
-# create login frame
 class LoginFrame(customtkinter.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -343,14 +309,17 @@ class LoginFrame(customtkinter.CTkFrame):
         self.fg_color = "transparent"
         self.grid_columnconfigure(0, weight=1)
 
-        self.login_label = customtkinter.CTkLabel(self, text="Animelist\nLogin Page",
-                                                  font=customtkinter.CTkFont(size=20, weight="bold"))
+        self.login_label = customtkinter.CTkLabel(
+            self, text="Animelist\nLogin Page", font=customtkinter.CTkFont(size=20, weight="bold")
+        )
         self.login_username_entry = customtkinter.CTkEntry(self, width=200, placeholder_text="username")
-        self.login_password_entry = customtkinter.CTkEntry(self, width=200, show="*",
-                                                           placeholder_text="password")
+        self.login_password_entry = customtkinter.CTkEntry(
+            self, width=200, show="*", placeholder_text="password"
+        )
         self.login_button = customtkinter.CTkButton(self, text="Login", command=self.login_event, width=200)
-        self.login_label_error = customtkinter.CTkLabel(self, text="", text_color='red',
-                                                        font=customtkinter.CTkFont(size=14, weight="bold"))
+        self.login_label_error = customtkinter.CTkLabel(
+            self, text="", text_color='red', font=customtkinter.CTkFont(size=14, weight="bold")
+        )
 
         self.login_label.grid(row=1, column=0, padx=30, pady=(40, 15))
         self.login_username_entry.grid(row=2, column=0, padx=30, pady=(15, 15))
@@ -361,20 +330,21 @@ class LoginFrame(customtkinter.CTkFrame):
     def login_event(self):
         username = self.login_username_entry.get()
         password = self.login_password_entry.get()
-        answer = requests.get('http://localhost:8000/v1/auth/current', auth=(username, password))
-        response = answer.json()
-        if answer.status_code == requests.codes.ok:
+        try:
+            answer = requests.get('http://localhost:8000/v1/auth/current', auth=(username, password))
+            response = answer.json()
+        except:
+            self.login_label_error.configure(text="Сервер не отвечает")
+        if 'answer' in locals() and answer.status_code == requests.codes.ok:
             self.master.unlock_navigation_bar()
-
+        if 'response' in locals():
+            self.login_label_error.configure(text=response.get("detail", "Сервер пал"))
             # self.navigation_frame_label.configure(text=response['username'])
             # self.profile_username_label.configure(text=response['username'])
             # self.profile_email_label.configure(text=response['email'])
             # self.master.show_frame_by_name("frame_profile")
-        else:
-            self.login_label_error.configure(text=response.get("detail", "Сервер пал"))
 
 
-# create profile frame
 class ProfileFrame(customtkinter.CTkFrame):
     corner_radius = 0
     fg_color = "transparent"
