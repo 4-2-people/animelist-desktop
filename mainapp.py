@@ -190,28 +190,25 @@ class NavigationFrame(customtkinter.CTkFrame):
         self.navigation_appearance_mode_menu.grid(row=8, column=0, padx=20, pady=20, sticky="s")
 
     def select_frame_by_name(self, name: str):
+        self.navigation_home_button.configure(fg_color="transparent")
+        self.navigation_registration_button.configure(fg_color="transparent")
+        self.navigation_login_button.configure(fg_color="transparent")
+        self.navigation_profile_button.configure(fg_color="transparent")
+        self.navigation_add_friend_button.configure(fg_color="transparent")
+        self.navigation_found_button.configure(fg_color="transparent")
         match name:
             case "frame_home":
-                self.navigation_home_button.configure(fg_color=("gray75", "gray25") if name == "frame_home" else "transparent")
+                self.navigation_home_button.configure(fg_color=("gray75", "gray25"))
             case "frame_registration":
-                self.navigation_registration_button.configure(fg_color=("gray75", "gray25") if name == "frame_registration" else "transparent")
+                self.navigation_registration_button.configure(fg_color=("gray75", "gray25"))
             case "frame_login":
-                self.navigation_login_button.configure(fg_color=("gray75", "gray25") if name == "frame_login" else "transparent")
+                self.navigation_login_button.configure(fg_color=("gray75", "gray25"))
             case "frame_profile":
-                self.navigation_profile_button.configure(fg_color=("gray75", "gray25") if name == "frame_profile" else "transparent")
+                self.navigation_profile_button.configure(fg_color=("gray75", "gray25"))
             case "frame_add_friend":
-                self.navigation_add_friend_button.configure(fg_color=("gray75", "gray25") if name == "frame_add_friend" else "transparent")
+                self.navigation_add_friend_button.configure(fg_color=("gray75", "gray25"))
             case "frame_found":
-                self.navigation_found_button.configure(fg_color=("gray75", "gray25") if name == "frame_found" else "transparent")
-
-        #
-        #     fg_color=("gray75", "gray25") if name == "frame_login" else "transparent")
-        # self..configure(
-        #     fg_color=("gray75", "gray25") if name == "frame_profile" else "transparent")
-        # self..configure(
-        #     fg_color=("gray75", "gray25") if name == "frame_add_friend" else "transparent")
-        # self..configure(
-        #     fg_color=("gray75", "gray25") if name == "frame_found" else "transparent")
+                self.navigation_found_button.configure(fg_color=("gray75", "gray25"))
 
         self.master.show_frame_by_name(name)
 
