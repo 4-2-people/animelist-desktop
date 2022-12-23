@@ -7,6 +7,27 @@ from PIL import Image
 customtkinter.set_appearance_mode("dark")
 image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "bg_img/test img")
 
+test_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "large_img.jpg")), size=(150, 100))
+test_animelist = [
+    {'img': test_image, 'title': 'test title',
+     'desc': 'This test description about very cool anime we dont know how it work, but we want it bzzzzzzzzzzzzzzz!',
+     'rait':5},
+    {'img': test_image, 'title': 'test title',
+     'desc': 'This test description about very cool anime we dont know how it work, but we want it bzzzzzzzzzzzzzzz!',
+     'rait':5},
+    {'img': test_image, 'title': 'test title',
+     'desc': 'This test description about very cool anime we dont know how it work, but we want it bzzzzzzzzzzzzzzz!',
+     'rait':5},
+    {'img': test_image, 'title': 'test title',
+     'desc': 'This test description about very cool anime we dont know how it work, but we want it bzzzzzzzzzzzzzzz!',
+     'rait':5},
+    {'img': test_image, 'title': 'test title',
+     'desc': 'This test description about very cool anime we dont know how it work, but we want it bzzzzzzzzzzzzzzz!',
+     'rait':5},
+    {'img': test_image, 'title': 'test title',
+     'desc': 'This test description about very cool anime we dont know how it work, but we want it bzzzzzzzzzzzzzzz!',
+     'rait':5},
+]
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -29,7 +50,7 @@ class App(customtkinter.CTk):
         self.frame_home.grid(row=0, column=1, sticky="nsew")
 
     def show_frame_by_name(self, name: str):
-        if name == "home":
+        if name == "frame_home":
             self.frame_home.grid(row=0, column=1, sticky="nsew")
         else:
             self.frame_home.grid_forget()
@@ -226,32 +247,8 @@ class HomeFrame(customtkinter.CTkFrame):
         self.fg_color = "transparent"
         self.grid_columnconfigure(0, weight=1)
 
-        self.large_test_image = customtkinter.CTkImage(
-            Image.open(os.path.join(image_path, "large_img.jpg")), size=(500, 150)
-        )
-        self.icon_image = customtkinter.CTkImage(
-            Image.open(os.path.join(image_path, "app_logo.png")), size=(20, 20)
-        )
-        self.home_frame_large_image_label = customtkinter.CTkLabel(
-            self, text="", image=self.large_test_image
-        )
-        self.home_frame_button_1 = customtkinter.CTkButton(self, text="", image=self.icon_image)
-
-        self.home_frame_button_2 = customtkinter.CTkButton(
-            self, text="CTkButton", image=self.icon_image, compound="right"
-        )
-        self.home_frame_button_3 = customtkinter.CTkButton(
-            self, text="CTkButton", image=self.icon_image, compound="top"
-        )
-        self.home_frame_button_4 = customtkinter.CTkButton(
-            self, text="CTkButton", image=self.icon_image, compound="bottom", anchor="w"
-        )
-
-        self.home_frame_large_image_label.grid(row=0, column=0, padx=20, pady=10)
-        self.home_frame_button_1.grid(row=1, column=0, padx=20, pady=10)
-        self.home_frame_button_2.grid(row=2, column=0, padx=20, pady=10)
-        self.home_frame_button_3.grid(row=3, column=0, padx=20, pady=10)
-        self.home_frame_button_4.grid(row=4, column=0, padx=20, pady=10)
+        self.inner_frame = customtkinter.CTkFrame(self)
+        AnimeInList(self, test_image, 'naruto', 'short description ффффффффффффффффффффффффффффффффффффффффффффффффффффффффф', 5).grid(row=0, column=0, sticky="ew")
 
 
 class RegistrationFrame(customtkinter.CTkFrame):
@@ -372,6 +369,36 @@ class ProfileFrame(customtkinter.CTkFrame):
         self.profile_label.grid(row=1, column=0, padx=15, pady=(20, 15))
         self.profile_username_label.grid(row=2, column=1, sticky="w")
         self.profile_email_label.grid(row=3, column=1, sticky="w")
+
+
+class AnimeInList(customtkinter.CTkFrame):
+    def __init__(self, parent, img: customtkinter.CTkImage, title: str, desc: str, rait: float):
+        super().__init__(parent)
+        self.description = desc
+        self.raiting = rait
+        self.image_add_to_list = customtkinter.CTkImage(
+            light_image=Image.open(os.path.join(image_path, "add_to_list_light.png")),
+            dark_image=Image.open(os.path.join(image_path, "add_to_list_dark.png")),
+            size=(20, 20)
+        )
+
+        self.anime_icon = customtkinter.CTkLabel(self, image=img, text='')
+        self.anime_title = customtkinter.CTkLabel(self, text=title, bg_color='red')
+        self.anime_description = customtkinter.CTkLabel(self, text=desc,  bg_color='red')
+        self.button_add_to_list = customtkinter.CTkButton(
+            self, corner_radius=0, height=40, border_spacing=10,
+            text="",
+            fg_color="transparent",
+            text_color=("gray10", "gray90"),
+            hover_color=("gray70", "gray30"),
+            image=self.image_add_to_list,
+            anchor="w"
+        )
+
+        self.anime_icon.grid(row=0, column=0, rowspan=4, columnspan=3)
+        self.anime_title.grid(row=0, column=3, columnspan=6, padx=1, pady=1, sticky='nesw')
+        self.anime_description.grid(row=1, column=3, columnspan=10, sticky='nesw')
+        self.button_add_to_list.grid(row=2, column=3, columnspan=2, sticky='nesw')
 
 
 if __name__ == "__main__":
