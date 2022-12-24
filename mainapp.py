@@ -11,23 +11,24 @@ test_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "large_i
 test_animelist = [
     {'img': test_image, 'title': 'test title',
      'desc': 'This test description about very cool anime we dont know how it work, but we want it bzzzzzzzzzzzzzzz!',
-     'rait':5},
+     'rait': 10},
     {'img': test_image, 'title': 'test title',
      'desc': 'This test description about very cool anime we dont know how it work, but we want it bzzzzzzzzzzzzzzz!',
-     'rait':5},
+     'rait': 7},
     {'img': test_image, 'title': 'test title',
      'desc': 'This test description about very cool anime we dont know how it work, but we want it bzzzzzzzzzzzzzzz!',
-     'rait':5},
+     'rait': 5},
     {'img': test_image, 'title': 'test title',
      'desc': 'This test description about very cool anime we dont know how it work, but we want it bzzzzzzzzzzzzzzz!',
-     'rait':5},
+     'rait': 8},
     {'img': test_image, 'title': 'test title',
      'desc': 'This test description about very cool anime we dont know how it work, but we want it bzzzzzzzzzzzzzzz!',
-     'rait':5},
+     'rait': 5},
     {'img': test_image, 'title': 'test title',
      'desc': 'This test description about very cool anime we dont know how it work, but we want it bzzzzzzzzzzzzzzz!',
-     'rait':5},
+     'rait': 5},
 ]
+
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -248,7 +249,18 @@ class HomeFrame(customtkinter.CTkFrame):
         self.grid_columnconfigure(0, weight=1)
 
         self.inner_frame = customtkinter.CTkFrame(self)
-        AnimeInList(self, test_image, 'naruto', 'short description ффффффффффффффффффффффффффффффффффффффффффффффффффффффффф', 5).grid(row=0, column=0, sticky="ew")
+
+        for index, anime in enumerate(test_animelist):
+            AnimeInList(
+                self,
+                anime['img'],
+                anime['title'],
+                anime['desc'],
+                anime['rait']
+            ).grid(row=index, column=0, sticky="ew", pady=1)
+
+        self.scroll_y = customtkinter.CTkScrollbar(self, orientation='vertical')
+        self
 
 
 class RegistrationFrame(customtkinter.CTkFrame):
@@ -374,17 +386,28 @@ class ProfileFrame(customtkinter.CTkFrame):
 class AnimeInList(customtkinter.CTkFrame):
     def __init__(self, parent, img: customtkinter.CTkImage, title: str, desc: str, rait: float):
         super().__init__(parent)
-        self.description = desc
-        self.raiting = rait
         self.image_add_to_list = customtkinter.CTkImage(
             light_image=Image.open(os.path.join(image_path, "add_to_list_light.png")),
             dark_image=Image.open(os.path.join(image_path, "add_to_list_dark.png")),
             size=(20, 20)
         )
+        self.image_comments = customtkinter.CTkImage(
+            light_image=Image.open(os.path.join(image_path, "comments_light.png")),
+            dark_image=Image.open(os.path.join(image_path, "comments_dark.png")),
+            size=(20, 20)
+        )
 
         self.anime_icon = customtkinter.CTkLabel(self, image=img, text='')
-        self.anime_title = customtkinter.CTkLabel(self, text=title, bg_color='red')
-        self.anime_description = customtkinter.CTkLabel(self, text=desc,  bg_color='red')
+        self.anime_title = customtkinter.CTkLabel(self, text=title)
+        self.anime_raiting = customtkinter.CTkProgressBar(
+            self,
+            orientation=customtkinter.HORIZONTAL,
+            mode='determinate',
+            width=100,
+            variable=customtkinter.DoubleVar(self, rait/10),
+            progress_color='orange'
+        )
+        self.anime_description = customtkinter.CTkLabel(self, text=desc)
         self.button_add_to_list = customtkinter.CTkButton(
             self, corner_radius=0, height=40, border_spacing=10,
             text="",
@@ -394,11 +417,14 @@ class AnimeInList(customtkinter.CTkFrame):
             image=self.image_add_to_list,
             anchor="w"
         )
+        self.anime_comments = customtkinter.CTkLabel(self, text='0', image=self.image_comments)
 
         self.anime_icon.grid(row=0, column=0, rowspan=4, columnspan=3)
-        self.anime_title.grid(row=0, column=3, columnspan=6, padx=1, pady=1, sticky='nesw')
+        self.anime_title.grid(row=0, column=3, columnspan=6, padx=1, pady=1, sticky='w')
+        self.anime_raiting.grid(row=0, column=6, columnspan=2, padx=1, pady=1, sticky='e')
         self.anime_description.grid(row=1, column=3, columnspan=10, sticky='nesw')
         self.button_add_to_list.grid(row=2, column=3, columnspan=2, sticky='nesw')
+        self.anime_comments.grid(row=2, column=5, columnspan=2, sticky='e')
 
 
 if __name__ == "__main__":
